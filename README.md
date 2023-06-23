@@ -8,19 +8,19 @@ Essa é uma API que permite ao usuário realizar operações basicas de CRUD em 
 
 # Instalação
 
-1. Instalar as dependências do projeto
+1. Fazer o clone do projeto
+```
+git clone https://github.com/lucasacoutinho/places-api.git
+```
+
+2. Instalar as dependências do projeto
 ```
 docker compose up -d
 ```
 
-2. Acessar o container da aplicação
+3. Acessar o container da aplicação
 ```
 docker exec -it sgbr-api ash
-```
-
-3. No container da aplicação instalar as dependencias do projeto
-```
-composer install
 ```
 
 4. Execute as migrations

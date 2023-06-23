@@ -1,5 +1,8 @@
 FROM php:8.1-fpm-alpine
 
+# ENV APP_ENV production
+# ENV APP_DEBUG false
+
 RUN apk update && \
     apk add --no-cache $PHPIZE_DEPS\
     curl \
@@ -11,8 +14,7 @@ RUN apk update && \
     jpegoptim optipng pngquant gifsicle \
     libzip-dev \
     zip \
-    unzip \
-    git
+    unzip
 
 RUN docker-php-ext-configure gd --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd && \
@@ -23,9 +25,21 @@ RUN pecl install -o -f redis \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis
 
+
+WORKDIR /var/www
+
+COPY . .
+
+COPY .env.example .env
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-COPY --chown=www-data:root . /var/www
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 775 storage bootstrap/cache
+    
+# Install dependencies
+RUN su www-data -s /bin/sh -c "composer install --optimize-autoloader --no-dev"
+
 
 EXPOSE 9000
 
