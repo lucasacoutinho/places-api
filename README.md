@@ -18,17 +18,22 @@ git clone https://github.com/lucasacoutinho/places-api.git
 cd places-api
 ```
 
-3. Instalar as dependências do projeto
+3. Copie as variaveis de ambiente
+```
+cp .env.example .env
+```
+
+4. Instalar as dependências do projeto
 ```
 docker compose up -d
 ```
 
-4. Acessar o container da aplicação
+5. Acessar o container da aplicação
 ```
-docker exec -it sgbr-api ash
+docker exec -it sgbr-api bash
 ```
 
-5. Execute as migrations
+6. Execute as migrations
 ```
 php artisan migrate --seed
 ```
@@ -42,7 +47,7 @@ http://localhost/swagger
 ## Testes
 1. Acessar o container da aplicação
 ```
-docker exec -it sgbr-api ash
+docker exec -it sgbr-api bash
 ```
 
 2. Executar o comando de testes

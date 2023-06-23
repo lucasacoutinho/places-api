@@ -1,46 +1,48 @@
-FROM php:8.1-fpm-alpine
+FROM php:8.1-fpm
 
-# ENV APP_ENV production
-# ENV APP_DEBUG false
+WORKDIR /var/www
 
-RUN apk update && \
-    apk add --no-cache $PHPIZE_DEPS\
-    curl \
-    oniguruma-dev \
+# Setup basic dependencies
+RUN apt-get update && apt-get install -y \
     libpq-dev \
+    libonig-dev \
+    curl \
     libxml2-dev \
     libpng-dev \
-    libjpeg-turbo-dev \
-    jpegoptim optipng pngquant gifsicle \
-    libzip-dev \
     zip \
-    unzip
+    unzip \
+    libzip-dev
 
-RUN docker-php-ext-configure gd --with-jpeg && \
-    docker-php-ext-install -j$(nproc) gd && \
-    docker-php-ext-enable gd && \
-    docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl bcmath
+# Setup php extensions
+RUN docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl bcmath
 
+# Setup redis
 RUN pecl install -o -f redis \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis
 
-
-WORKDIR /var/www
-
-COPY . .
-
-COPY .env.example .env
-
+# Setup composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 775 storage bootstrap/cache
-    
-# Install dependencies
-RUN su www-data -s /bin/sh -c "composer install --optimize-autoloader --no-dev"
+# Setup permissions
 
+RUN groupadd -g 1000 www
 
+RUN useradd -u 1000 -ms /bin/bash -g www www
+
+COPY . /var/www
+
+COPY --chown=www:www . /var/www
+
+RUN chmod -R 755 /var/www/storage
+
+USER www
+
+# Install application dependencies
+RUN composer install --optimize-autoloader
+
+# Expose port
 EXPOSE 9000
 
+# Start PHP-FPM
 CMD ["php-fpm"]
