@@ -33,7 +33,12 @@ docker compose up -d
 docker exec -it sgbr-api bash
 ```
 
-6. Execute as migrations
+6. Instale as dependencias do projeto
+```
+composer install
+```
+
+7. Execute as migrations
 ```
 php artisan migrate --seed
 ```

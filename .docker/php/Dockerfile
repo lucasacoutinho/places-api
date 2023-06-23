@@ -38,9 +38,6 @@ RUN chmod -R 755 /var/www/storage
 
 USER www
 
-# Install application dependencies
-RUN composer install --optimize-autoloader
-
 # Expose port
 EXPOSE 9000
 
