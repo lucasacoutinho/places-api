@@ -13,17 +13,22 @@ Essa é uma API que permite ao usuário realizar operações basicas de CRUD em 
 git clone https://github.com/lucasacoutinho/places-api.git
 ```
 
-2. Instalar as dependências do projeto
+2. Acesse o diretório do projeto
+```
+cd places-api
+```
+
+3. Instalar as dependências do projeto
 ```
 docker compose up -d
 ```
 
-3. Acessar o container da aplicação
+4. Acessar o container da aplicação
 ```
 docker exec -it sgbr-api ash
 ```
 
-4. Execute as migrations
+5. Execute as migrations
 ```
 php artisan migrate --seed
 ```
