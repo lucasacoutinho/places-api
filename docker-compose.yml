@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  sgbr-server:
+    container_name: sgbr-server
+    image: nginx:alpine
+    volumes:
+      - .:/var/www
+      - ./.docker/nginx/:/etc/nginx/conf.d/
+    ports:
+      - '80:80'
+    networks:
+      - sgbr-network
+    depends_on:
+      - sgbr-api
+
+  sgbr-api:
+    container_name: sgbr-api
+    build:
+      context: .
+      dockerfile: ./.docker/php/Dockerfile
+    volumes:
+      - .:/var/www
+    networks:
+      - sgbr-network
+    depends_on:
+      - sgbr-database
+      - sgbr-redis
+
+  sgbr-redis:
+    container_name: sgbr-redis
+    image: redis:alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    networks:
+      - sgbr-network
+
+  sgbr-database:
+    container_name: sgbr-database
+    image: postgres:alpine
+    restart: always
+    tty: true
+    volumes:
+        - sgbr-data:/var/lib/postgresql/data
+        - ./.docker/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql
+    environment:
+      POSTGRES_DB: 'sgbr-database'
+      POSTGRES_USER: 'sgbr-database'
+      POSTGRES_PASSWORD: 'sgbr-database'
+    ports:
+      - '5432:5432'
+    networks:
+      - sgbr-network
+
+networks:
+  sgbr-network:
+    driver: bridge
+
+volumes:
+  sgbr-data:

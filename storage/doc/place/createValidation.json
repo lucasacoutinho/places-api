@@ -1,0 +1,19 @@
+{
+    "errors": {
+        "name": [
+            "The name field is required.",
+            "The name field must be a string.",
+            "The name field must not be greater than 255 characters."
+        ],
+        "city": [
+            "The city field is required.",
+            "The city field must be a string.",
+            "The city field must not be greater than 255 characters."
+        ],
+        "state": [
+            "The state field is required.",
+            "The state field must be a string.",
+            "The state field must not be greater than 255 characters."
+        ]
+    }
+}

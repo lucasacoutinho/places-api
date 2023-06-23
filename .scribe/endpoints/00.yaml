@@ -1,0 +1,398 @@
+name: Place
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/places
+    metadata:
+      groupName: Place
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Places list'
+      description: 'This endpoint return the list of places.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      name:
+        name: name
+        description: 'The place name.'
+        required: false
+        example: fugiat
+        type: string
+        custom: []
+      per_page:
+        name: per_page
+        description: 'The number of items to be returned per page `default: 10`. Must be at least 1. Must not be greater than 100.'
+        required: false
+        example: 16
+        type: integer
+        custom: []
+    cleanQueryParameters:
+      name: fugiat
+      per_page: 16
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": [
+                  {
+                      "id": 1,
+                      "name": "51817 Dewitt Bridge",
+                      "slug": "51817-dewitt-bridge-at-port-joshuaberg-at-sint-tenetur",
+                      "city": "Port Joshuaberg",
+                      "state": "sint tenetur",
+                      "created_at": "2023-06-23T13:47:53.000000Z",
+                      "updated_at": "2023-06-23T13:47:53.000000Z"
+                  },
+                  {
+                      "id": 2,
+                      "name": "639 Aufderhar Junction Apt. 649",
+                      "slug": "639-aufderhar-junction-apt-649-at-kaelynmouth-at-deleniti-aut",
+                      "city": "Kaelynmouth",
+                      "state": "deleniti aut",
+                      "created_at": "2023-06-23T13:47:53.000000Z",
+                      "updated_at": "2023-06-23T13:47:53.000000Z"
+                  }
+              ],
+              "links": {
+                  "first": "http://localhost/api/v1/places?page=1",
+                  "last": "http://localhost/api/v1/places?page=1",
+                  "prev": null,
+                  "next": null
+              },
+              "meta": {
+                  "current_page": 1,
+                  "from": 1,
+                  "last_page": 1,
+                  "links": [
+                      {
+                          "url": null,
+                          "label": "&laquo; Previous",
+                          "active": false
+                      },
+                      {
+                          "url": "http://localhost/api/v1/places?page=1",
+                          "label": "1",
+                          "active": true
+                      },
+                      {
+                          "url": null,
+                          "label": "Next &raquo;",
+                          "active": false
+                      }
+                  ],
+                  "path": "http://localhost/api/v1/places",
+                  "per_page": 10,
+                  "to": 10,
+                  "total": 10
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/places
+    metadata:
+      groupName: Place
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'New place'
+      description: 'This endpoint create a new place.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'The place name. Must not be greater than 255 characters.'
+        required: true
+        example: iqxtwwehqgxhvmfwbdtahest
+        type: string
+        custom: []
+      city:
+        name: city
+        description: 'The city name. Must not be greater than 255 characters.'
+        required: true
+        example: ohieliccydgsd
+        type: string
+        custom: []
+      state:
+        name: state
+        description: 'The state name. Must not be greater than 255 characters.'
+        required: true
+        example: xpusgul
+        type: string
+        custom: []
+    cleanBodyParameters:
+      name: iqxtwwehqgxhvmfwbdtahest
+      city: ohieliccydgsd
+      state: xpusgul
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": {
+                  "id": 1,
+                  "name": "51817 Dewitt Bridge",
+                  "slug": "51817-dewitt-bridge-at-port-joshuaberg-at-sint-tenetur",
+                  "city": "Port Joshuaberg",
+                  "state": "sint tenetur",
+                  "created_at": "2023-06-23T13:47:53.000000Z",
+                  "updated_at": "2023-06-23T13:47:53.000000Z"
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |
+          {
+              "errors": {
+                  "name": [
+                      "The name field is required.",
+                      "The name field must be a string.",
+                      "The name field must not be greater than 255 characters."
+                  ],
+                  "city": [
+                      "The city field is required.",
+                      "The city field must be a string.",
+                      "The city field must not be greater than 255 characters."
+                  ],
+                  "state": [
+                      "The state field is required.",
+                      "The state field must be a string.",
+                      "The state field must not be greater than 255 characters."
+                  ]
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/places/{id}'
+    metadata:
+      groupName: Place
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Find place'
+      description: 'This endpoint return a place.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the place.'
+        required: true
+        example: 10
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 10
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": {
+                  "id": 1,
+                  "name": "51817 Dewitt Bridge",
+                  "slug": "51817-dewitt-bridge-at-port-joshuaberg-at-sint-tenetur",
+                  "city": "Port Joshuaberg",
+                  "state": "sint tenetur",
+                  "created_at": "2023-06-23T13:47:53.000000Z",
+                  "updated_at": "2023-06-23T13:47:53.000000Z"
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/v1/places/{id}'
+    metadata:
+      groupName: Place
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update a place'
+      description: 'This endpoint update a place.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the place.'
+        required: true
+        example: 11
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 11
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'The place name. Must not be greater than 255 characters.'
+        required: false
+        example: gdmtgfuhvmiyjemqceyo
+        type: string
+        custom: []
+      city:
+        name: city
+        description: 'The city name. Must not be greater than 255 characters.'
+        required: false
+        example: hpkwxjhbrkjbnjdnrpou
+        type: string
+        custom: []
+      state:
+        name: state
+        description: 'The state name. Must not be greater than 255 characters.'
+        required: false
+        example: a
+        type: string
+        custom: []
+    cleanBodyParameters:
+      name: gdmtgfuhvmiyjemqceyo
+      city: hpkwxjhbrkjbnjdnrpou
+      state: a
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"message": "Place updated."}'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |
+          {
+              "errors": {
+                  "name": [
+                      "The name field must have a value.",
+                      "The name field must be a string.",
+                      "The name field must not be greater than 255 characters."
+                  ],
+                  "city": [
+                      "The city field must have a value.",
+                      "The city field must be a string.",
+                      "The city field must not be greater than 255 characters."
+                  ],
+                  "state": [
+                      "The state field must have a value.",
+                      "The state field must be a string.",
+                      "The state field must not be greater than 255 characters."
+                  ]
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/places/{id}'
+    metadata:
+      groupName: Place
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a place'
+      description: 'This endpoint delete a place.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the place.'
+        required: true
+        example: 10
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 10
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 204
+        content: '{"message": "Place deleted."}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
